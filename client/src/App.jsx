@@ -112,7 +112,7 @@ function App() {
 
   const fetchSubscriptions = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/subscriptions');
+      const response = await axios.get('https://tej-smart-subscription.onrender.com/subscriptions');
       setSubscriptions(response.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -132,11 +132,11 @@ function App() {
     try {
       if (editingId) {
        
-        await axios.put(`http://localhost:3000/subscriptions/${editingId}`, form);
+        await axios.put(`https://tej-smart-subscription.onrender.com/subscriptions/${editingId}`, form);
         setEditingId(null); 
       } else {
         
-        await axios.post('http://localhost:3000/subscriptions', form);
+        await axios.post('https://tej-smart-subscription.onrender.com/subscriptions', form);
       }
 
      
@@ -150,7 +150,7 @@ function App() {
 
   const handleLogUsage = async (id) => {
     try {
-      await axios.post(`http://localhost:3000/subscriptions/${id}/log`);
+      await axios.post(`https://tej-smart-subscription.onrender.com/subscriptions/${id}/log`);
       fetchSubscriptions(); 
     } catch (error) {
       console.error("Error logging usage", error);
@@ -160,7 +160,7 @@ function App() {
   const handleDelete = async (id) => {
     if(!confirm("Are you sure?")) return;
     try {
-      await axios.delete(`http://localhost:3000/subscriptions/${id}`);
+      await axios.delete(`https://tej-smart-subscription.onrender.com/subscriptions/${id}`);
       fetchSubscriptions();
     } catch (error) {
       console.error("Error deleting", error);
