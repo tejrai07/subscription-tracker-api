@@ -20,7 +20,8 @@ const subscriptionSchema = new mongoose.Schema({
     enum: ['Entertainment', 'Personal', 'Work', 'Utilities', 'Other'],
     default: 'Other'
   },
-  usageHistory: [Date]
+  usageHistory: [Date],
+  userId: { type: String, required: true },
 });
 
 
