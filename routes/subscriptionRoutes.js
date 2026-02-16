@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
       return res.json([]); 
     }
 
+    // This is a comment to force a deployment
     
     const subscriptions = await Subscription.find({ userId });
     res.json(subscriptions);
