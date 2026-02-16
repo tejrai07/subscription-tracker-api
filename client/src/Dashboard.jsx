@@ -110,20 +110,19 @@ function Dashboard() {
     
 
  const fetchSubscriptions = async () => {
-  
-  if (!user) return; 
+    
+    if (!user) return;
 
-  try {
-    
-    const response = await axios.get('https://tej-smart-subscription.onrender.com/subscriptions', {
-      params: { userId: user.id } 
-    });
-    
-    setSubscriptions(response.data);
-  } catch (error) { 
-    console.error("Error fetching", error); 
-  }
-};
+    try {
+      
+      const response = await axios.get('https://tej-smart-subscription.onrender.com/subscriptions', {
+        params: { userId: user.id } 
+      });
+      setSubscriptions(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   
   const handleChange = (e) => {
@@ -133,24 +132,26 @@ function Dashboard() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!user) return alert("Please sign in!");
+
     
+    const submissionData = { ...form, userId: user.id }; 
 
     try {
       if (editingId) {
-       
-        await axios.put(`https://tej-smart-subscription.onrender.com/subscriptions/${editingId}`, form);
+        await axios.put(`https://tej-smart-subscription.onrender.com/subscriptions/${editingId}`, submissionData);
         setEditingId(null); 
       } else {
         
-        await axios.post('https://tej-smart-subscription.onrender.com/subscriptions', form);
+        await axios.post('https://tej-smart-subscription.onrender.com/subscriptions', submissionData);
       }
-
-     
-      setForm({ name: '', cost: '', frequency: 'monthly',category: 'Entertainment' });
+      
+      setForm({ name: '', cost: '', frequency: 'monthly', category: 'Entertainment' });
       fetchSubscriptions(); 
+      alert('Saved successfully! '); 
     } catch (error) {
       console.error("Error saving:", error);
-      alert("Error saving subscription");
+      alert("Error saving subscription.");
     }
   };
 
